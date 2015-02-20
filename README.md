@@ -9,7 +9,7 @@ local http proxy server(I call it client).
 ### Configuration
 The server and the client use two copies of one config, stored in a json file.
 
-The default configuration is stored in default_config.json, you can override it
+The default configuration is stored in `default_config.json`, you can override it
 with you own json file.
 
 There are 6 fields you can config.
