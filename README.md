@@ -12,7 +12,7 @@ The server and the client use two copy of one config, stored in a json file.
 The default configuration is stored in default_config.json, you can override it
 with you own json file.
 
-There 6 field you can config.
+There are 6 field you can config.
 
  * server: address of the remote server
  * remote_port: port the remote server will listen on
