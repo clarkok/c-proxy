@@ -19,7 +19,7 @@ There are 6 fields you can config.
  * local_port: port the local http proxy server will listen on
  * password
  * algorithm: all the algorithms availible for crypto.createCipher are ok
- * timeout: in seconds. time to clear dead request
+ * timeout: in seconds. time to clear dead requests
 
 ### Server
 ```
