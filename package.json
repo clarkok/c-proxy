@@ -1,0 +1,9 @@
+{
+  "name" : "c-proxy",
+  "version" : "0.0.1",
+  "description" : "Self-used encrypted http proxy forwarder",
+  "dependencies" : {
+    "socket.io" : "latest",
+    "socket.io-client" : "latest"
+  }
+}

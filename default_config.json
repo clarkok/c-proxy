@@ -1,0 +1,8 @@
+{
+  "server" : "127.0.0.1",
+  "remote_port" : 1080,
+  "local_port" : 1080,
+  "password" : "password",
+  "algorithm" : "aes-256-ctr",
+  "timeout" : 600
+}
