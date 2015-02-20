@@ -108,6 +108,18 @@ io.on('connection', function (socket) {
   socket.on('error', function () {
     console.log(arguments);
   });
+
+  setTimeout(function () {
+    var now = new Date();
+    Object.getOwnPropertyNames(socket.request_pool).forEach(function (key) {
+      if (now - socket.request_pool[key].last_update > config.timeout * 1000) {
+        socket.emit('req-end', {
+          id : key
+        });
+        delete socket.request_pool[key];
+      }
+    });
+  }, config.timeout);
 });
 
 io.listen(config.remote_port);
