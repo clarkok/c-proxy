@@ -1,4 +1,5 @@
 "use strict";
+
 var common = require('./common.js');
 
 var DEFAULT_CONFIG = require('./default_config.json');
@@ -6,39 +7,45 @@ var DEFAULT_CONFIG = require('./default_config.json');
 var config_file_path = process.argv.length > 2 ? process.argv[2] : null;
 var config = config_file_path ? require(config_file_path) : {};
 
+// Object.prototype.expand in common.js
 config.expand(DEFAULT_CONFIG);
 
 var http = require('http');
 var url = require('url');
 
+// use socket.io to connect with clients
 var io = require('socket.io')();
 
 var encrypt = common.Encryptor(config.algorithm, config.password);
 var decrypt = common.Decryptor(config.algorithm, config.password);
-
 var encrypt_buffer = common.BufferEncryptor(config.algorithm, config.password);
 var decrypt_buffer = common.BufferDecryptor(config.algorithm, config.password);
 
+// Verification strings
 var verification = encrypt(config.password);
 
 io.on('connection', function (socket) {
+
+  // client scoping request is kept here
   socket.request_pool = {};
 
+  // on verification
   socket.on('vrf', function (data) {
     common.log('Client connection');
 
     if (verification != data.v)
+      // refused
       socket.emit('rfs', {
         msg : 'Verification Failed'
       });
     else
+      // accepted
       socket.emit('ack', {
         msg : 'Hello World'
       });
   });
 
   socket.on('req-new', function (data) {
-
     if (verification != data.v)
       return;
 
@@ -109,6 +116,7 @@ io.on('connection', function (socket) {
     console.log(arguments);
   });
 
+  // set timeout to clear dead request
   setTimeout(function () {
     var now = new Date();
     Object.getOwnPropertyNames(socket.request_pool).forEach(function (key) {
