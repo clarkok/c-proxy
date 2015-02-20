@@ -1,6 +1,6 @@
 # C-Proxy
-Self-use remote encryped http proxy forwarder using `socket.io`. You know what it is 
-used for.
+Self-use remote encryped http proxy forwarder using `socket.io`. You know what 
+it is used for.
 
 ## Usage
 You will need two Linux hosts. One for the remote server, another for the 
@@ -18,7 +18,7 @@ There are 6 fields you can config.
  * remote_port: port the remote server will listen on
  * local_port: port the local http proxy server will listen on
  * password
- * algorithm: all the algorithm availible for crypto.createCipher is ok
+ * algorithm: all the algorithms availible for crypto.createCipher are ok
  * timeout: for now, leave it alone
 
 ### Server
