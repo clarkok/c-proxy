@@ -1,5 +1,6 @@
 "use strict";
 
+// expand this with obj
 Object.prototype.expand = function (obj) {
   var _this = this;
 
@@ -11,6 +12,7 @@ Object.prototype.expand = function (obj) {
 
 var crypto = require('crypto');
 
+// four factories to generate en/decryptors with algorithm and password
 exports.Decryptor = function (algorithm, password) {
   return function (content) {
     var d = crypto.createDecipher(algorithm, password);
@@ -39,6 +41,7 @@ exports.BufferEncryptor = function (algorithm, password) {
   }
 }
 
+// log with time tag
 exports.log = function () {
   var arg = [(new Date()).toString() + ':'];
   var l = arguments.length;
