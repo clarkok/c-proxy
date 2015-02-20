@@ -1,5 +1,5 @@
 # C-Proxy
-Self-use remote excryped http proxy forwarder with nodejs. You know what it is 
+Self-use remote encryped http proxy forwarder with nodejs. You know what it is 
 used for.
 
 ## Usage
