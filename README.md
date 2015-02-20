@@ -31,4 +31,4 @@ node server.js [/path/to/config.json]
 node client.js [/path/to/config.json]
 ```
 
-And then set you proxy server to localhost:<local_port>
+And then set you proxy server to localhost:< local_port >
