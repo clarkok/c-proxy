@@ -15,6 +15,7 @@ with you own json file.
 There are 6 fields you can config.
 
  * server: address of the remote server
+ * client: address of the http proxy server (the client), used in PAC generating
  * remote_port: port the remote server will listen on
  * local_port: port the local http proxy server will listen on
  * password
