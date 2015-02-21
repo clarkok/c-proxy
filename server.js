@@ -2,13 +2,7 @@
 
 var common = require('./common.js');
 
-var DEFAULT_CONFIG = require('./default_config.json');
-
-var config_file_path = process.argv.length > 2 ? process.argv[2] : null;
-var config = config_file_path ? require(config_file_path) : {};
-
-// Object.prototype.expand in common.js
-config.expand(DEFAULT_CONFIG);
+var config = common.get_config();
 
 var http = require('http');
 var url = require('url');

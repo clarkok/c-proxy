@@ -2,15 +2,10 @@
 
 var common = require('./common.js');
 
-var DEFAULT_CONFIG = require('./default_config.json');
-var config_file_path = process.argv.length > 2 ? process.argv[2] : null;
-var config = config_file_path ? require(config_file_path) : {};
-
-// Object.prototype.expand in common.js
-config.expand(DEFAULT_CONFIG);
-
 var http = require('http');
 var url = require('url');
+
+var config = common.get_config();
 
 // four en/decrypt functions created by four factory
 var encrypt = common.Encryptor(config.algorithm, config.password);
@@ -60,6 +55,24 @@ socket.on('connect', function () {
 
       var parsed = url.parse(req.url);
 
+      if (parsed.path == '/proxy.pac') {
+        common.log('Request for pac');
+        require('fs').readFile(common.PAC_PATH, function (err, data) {
+          if (err) {
+            res.writeHead(500, {});
+            res.write(err);
+            res.end();
+          }
+          else {
+            res.writeHead(200, {});
+            res.write(data);
+            res.end();
+          }
+        });
+
+        return;
+      }
+
       var option = {
         hostname : parsed.hostname,
         port : parseInt(parsed.port, 10),
@@ -90,6 +103,8 @@ socket.on('connect', function () {
         })
       });
     }).listen(config.local_port);
+
+    require('./pac.js').update();
   });
 
   // When refused by the remote server
@@ -101,5 +116,18 @@ socket.on('connect', function () {
   // Sending verification string to the remote server
   socket.emit('vrf', {
     v : verification
+  });
+
+  socket.on('reconnect_attempt', function () {
+    common.log(' - Reconnecting');
+  });
+
+  socket.on('reconnect_error', function () {
+    common.log(' -   failed');
+  });
+
+  socket.on('reconnect_failed', function () {
+    common.log(' - Failed to connect to server, exiting');
+    process.exit(-1);
   });
 });

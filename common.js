@@ -12,6 +12,8 @@ Object.prototype.expand = function (obj) {
 
 var crypto = require('crypto');
 
+exports.PAC_PATH = './pac/proxy.pac';
+
 // four factories to generate en/decryptors with algorithm and password
 exports.Decryptor = function (algorithm, password) {
   return function (content) {
@@ -50,4 +52,15 @@ exports.log = function () {
     arg.push(arguments[i]);
 
   console.log.apply(console, arg);
+}
+
+exports.get_config = function () {
+  var DEFAULT_CONFIG = require('./default_config.json');
+  var config_file_path = process.argv.length > 2 ? process.argv[2] : null;
+  var config = config_file_path ? require(config_file_path) : {};
+
+  // Object.prototype.expand in common.js
+  config.expand(DEFAULT_CONFIG);
+
+  return config;
 }
