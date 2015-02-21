@@ -32,4 +32,8 @@ node server.js [/path/to/config.json]
 node client.js [/path/to/config.json]
 ```
 
-And then set you proxy server to localhost:< local_port >
+And then set you proxy server to `< client >:< local_port >`
+Or set auto proxy to `< client >:< local_port >/proxy.pac`
+
+_NOTE: if you use Safari, you need to host the client on localhost, or Safari
+will not use proxy.pac_
